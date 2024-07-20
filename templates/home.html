@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+            background-color: #0D1B2A;
+            margin: 0;
+            color: #E0E1DD;
+        }
+        header {
+            background-color: #1B263B;
+            height: 80px; /* Ustawienie stałej wysokości */
+            display: flex;
+            position: relative;
+            align-items: center;
+            overflow: hidden; /* Ukrycie wszystkiego, co wychodzi poza nagłówek */
+        }
+        header > svg {
+            width: 40px; /* Dostosowanie szerokości do nowej wysokości */
+            height: 40px; /* Dostosowanie wysokości do nowej wysokości */
+        }
+        .userdata > img {
+            border-radius: 10px;
+            height: 80%; /* Dostosowanie wysokości obrazka do wysokości kontenera */
+            object-fit: cover; /* Zachowanie proporcji obrazka */
+        }
+        .userdata {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-right: 10px;
+            font-size: 24px;
+        }
+        .userdata > p, img {
+            padding: 1%;
+        }
+        .animeupdatelabel {
+            background-color: #1B263B;
+            padding: 1%;
+            display: flex; /* Dodaj display: flex */
+            gap: 1%; /* Odstęp między elementami */
+            align-items: center; /* Wyrównanie elementów w pionie */
+        }
+        .animeupdate {
+            position: relative;
+            flex: 1; /* Umożliwia równomierne rozmieszczenie */
+            border-radius: 10px;
+            width: 25%;
+            overflow: hidden; /* Dodaj overflow: hidden do kontenera */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .animeupdate img {
+            width: 100%;
+            display: block;
+            border-radius: 10px;
+        }
+        .animeupdate .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Przyciemnienie obrazka */
+            border-radius: 10px; /* Dopasowanie zaokrąglonych rogów */
+            z-index: 1;
+        }
+        .animeupdate p {
+            position: absolute;
+            margin: 0;
+            color: white;
+            font-size: 1.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2; /* Upewnia się, że tekst jest nad przyciemnieniem */
+        }
+        .animeupdate .title {
+            top: 10px;
+            left: 10px;
+        }
+        .animeupdate .episode {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .moreanime {
+            background-color: #415A77;
+            padding: 20px;
+            height: 100%; /* Automatyczna wysokość */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.5em;
+            text-align: center;
+            flex: 0 1 auto; /* Umożliwia elastyczną szerokość */
+        }
+    </style>
+</head>
+<body>
+    <header>&nbsp;
+
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+        </svg>
+        <div class="userdata">
+            <p>materamaba</p>
+            <img src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b6032946-lQZ1YMm78Lhf.jpg" alt="User Avatar">
+        </div>
+    </header>
+    <h2>Anime update</h2>
+    <div class="animeupdatelabel">
+        <div class="animeupdate">
+            <p class="title">ONE PIECE</p>
+            <p class="episode">603</p>
+            <div class="overlay"></div>
+            <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-YCDoj1EkAxFn.jpg" alt="ONE PIECE">
+        </div>
+        <div class="animeupdate">
+            <p class="title">ONE PIECE</p>
+            <p class="episode">603</p>
+            <div class="overlay"></div>
+            <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-YCDoj1EkAxFn.jpg" alt="ONE PIECE">
+        </div>
+        <div class="animeupdate">
+            <p class="title">ONE PIECE</p>
+            <p class="episode">603</p>
+            <div class="overlay"></div>
+            <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-YCDoj1EkAxFn.jpg" alt="ONE PIECE">
+        </div>
+        <div class="moreanime">
+            <p>MORE<br>+</p>
+        </div>
+    </div>
+</body>
+</html>
