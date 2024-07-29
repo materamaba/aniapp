@@ -1,1 +1,1 @@
-client for anilist
+Backend for anilist app for smartphones
