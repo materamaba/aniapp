@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <title>Home</title>
-    <style>
+        <style>
         body {
             background-color: #0D1B2A;
             margin: 0;
             color: #E0E1DD;
+            font-family: 'Poppins', sans-serif;
         }
         header {
             background-color: #1B263B;
-            height: 80px; /* Ustawienie stałej wysokości */
+            height: 80px;
             display: flex;
             position: relative;
             align-items: center;
-            overflow: hidden; /* Ukrycie wszystkiego, co wychodzi poza nagłówek */
+            overflow: hidden; 
         }
         header > svg {
-            width: 40px; /* Dostosowanie szerokości do nowej wysokości */
-            height: 40px; /* Dostosowanie wysokości do nowej wysokości */
+            width: 7%;
+            height: 55%;
         }
         .userdata > img {
             border-radius: 10px;
-            height: 80%; /* Dostosowanie wysokości obrazka do wysokości kontenera */
-            object-fit: cover; /* Zachowanie proporcji obrazka */
+            height: 70%;
+            object-fit: cover;
         }
         .userdata {
             position: absolute;
@@ -40,67 +42,99 @@
         .userdata > p, img {
             padding: 1%;
         }
-        .animeupdatelabel {
+        .label {
             background-color: #1B263B;
-            padding: 1%;
-            display: flex; /* Dodaj display: flex */
-            gap: 1%; /* Odstęp między elementami */
-            align-items: center; /* Wyrównanie elementów w pionie */
-        }
-        .animeupdate {
-            position: relative;
-            flex: 1; /* Umożliwia równomierne rozmieszczenie */
+            padding: 3% 1%;
+            margin: 1%;
+            box-shadow: 5px 5px 5px black;
             border-radius: 10px;
-            width: 25%;
-            overflow: hidden; /* Dodaj overflow: hidden do kontenera */
+            display: flex;
+            gap: 1%;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .updatecomponent {
+            position: relative;
+            flex: 1 1 calc(25% - 1%);
+            border-radius: 10px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
+            max-width: calc(24% - 1%);
+            box-sizing: border-box;
+            margin: 0.5%;
         }
-        .animeupdate img {
+
+        .updatecomponent img {
             width: 100%;
-            display: block;
-            border-radius: 10px;
+            height: 20vh;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
         }
-        .animeupdate .overlay {
+
+        .updatecomponent .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Przyciemnienie obrazka */
-            border-radius: 10px; /* Dopasowanie zaokrąglonych rogów */
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
             z-index: 1;
         }
-        .animeupdate p {
+
+        .updatecomponent p {
             position: absolute;
             margin: 0;
             color: white;
-            font-size: 1.5em;
+            word-wrap: break-word;
+            width:99%;
+            margin-left:0.5%;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            z-index: 2; /* Upewnia się, że tekst jest nad przyciemnieniem */
+            z-index: 2;
         }
-        .animeupdate .title {
-            top: 10px;
-            left: 10px;
+
+        .updatecomponent .title {
+            top: 3%;
+            left: 3%;
+            font-size: medium;
         }
-        .animeupdate .episode {
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .moreanime {
-            background-color: #415A77;
-            padding: 20px;
-            height: 100%; /* Automatyczna wysokość */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.5em;
+
+        .updatecomponent .episode {
+            bottom: 1%;
             text-align: center;
-            flex: 0 1 auto; /* Umożliwia elastyczną szerokość */
+            font-size: small;
+            width: 100%;
+        }
+
+
+        .more > a {
+            background-color: #415A77;
+            color: #E0E1DD;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 10px;
+            margin: -1% 1%;
+            padding: 1%;
+            width: 98%;
+            display: block;
+            box-sizing: border-box;
+        }
+
+        .more {
+            background-color: #1B263B;
+            padding: 3% 1%;
+            margin: 1%;
+            font-size: 20px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 5px black;
+        }
+
+        h2 {
+            margin-bottom: -1%;
+            margin-left: 1%;
         }
     </style>
 </head>
@@ -110,38 +144,79 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
         </svg>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
         </svg>
         <div class="userdata">
-            <p>materamaba</p>
-            <img src="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b6032946-lQZ1YMm78Lhf.jpg" alt="User Avatar">
+            <p>{{ username }}</p>
+            <img src="{{ avatar }}" alt="User Avatar">
         </div>
     </header>
-    <h2>Anime update</h2>
-    <div class="animeupdatelabel">
-        <div class="animeupdate">
-            <p class="title">ONE PIECE</p>
-            <p class="episode">603</p>
-            <div class="overlay"></div>
-            <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-YCDoj1EkAxFn.jpg" alt="ONE PIECE">
-        </div>
-        <div class="animeupdate">
-            <p class="title">ONE PIECE</p>
-            <p class="episode">603</p>
-            <div class="overlay"></div>
-            <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-YCDoj1EkAxFn.jpg" alt="ONE PIECE">
-        </div>
-        <div class="animeupdate">
-            <p class="title">ONE PIECE</p>
-            <p class="episode">603</p>
-            <div class="overlay"></div>
-            <img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21-YCDoj1EkAxFn.jpg" alt="ONE PIECE">
-        </div>
-        <div class="moreanime">
-            <p>MORE<br>+</p>
-        </div>
+
+<h2>Anime update</h2>
+<div class="label">
+    {% for a in anime %}
+    <div class="updatecomponent" data-id="{{ a.media.id }}" data-progress="{{ a.progress }}" data-type="ANIME">
+        <p class="title">{{ a.media.title.romaji or a.media.title.english or a.media.title.native }}</p>
+        <p class="episode">{{ a.progress }} / {{ a.media.episodes }}</p>
+        <div class="overlay" data-id="{{ a.media.id }}"></div>
+        <img src="{{ a.media.coverImage.large }}" alt="{{ a.media.title.romaji }}">
+    </div>
+    {% endfor %}
+</div>
+<h2>Manga update</h2>
+<div class="label">
+    {% for m in manga %}
+    <div class="updatecomponent" data-id="{{ m.media.id }}" data-progress="{{ m.progress }}" data-type="MANGA">
+        <p class="title">{{ m.media.title.romaji or m.media.title.english or m.media.title.native }}</p>
+        <p class="episode">{{ m.progress }} / {{ m.media.episodes }}</p>
+        <div class="overlay" data-id="{{ m.media.id }}"></div>
+        <img src="{{ m.media.coverImage.large }}" alt="{{ m.media.title.romaji }}">
+    </div>
+    {% endfor %}
+</div>
+
+    </div>
+    <h2>More</h2>
+    <div class="more">
+        <a href="" class="button" disabled>activity</a><br>
+        <a href="" class="button" disabled>full anime list</a><br>
+        <a href="" class="button" disabled>full manga list</a><br>
+        <a href="" class="button" disabled>browse</a><br>
+        <a href="" class="button" disabled>search</a>
     </div>
 </body>
 </html>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let episodes = document.querySelectorAll('.episode');
+
+    episodes.forEach(function(episode) {
+        let text = episode.textContent;
+
+        if (text.endsWith(" / None")) {
+            episode.textContent = text.slice(0, -7);
+        }
+    });
+
+    let titles = document.querySelectorAll('.title');
+
+    titles.forEach(function(title) {
+        let text = title.textContent;
+
+        if (text.length > 25) {
+            title.textContent = text.slice(0, 22) + '...';
+        }
+    });
+
+    document.querySelectorAll(".updatecomponent").forEach(component => {
+        component.addEventListener("click", function() {
+            const mediaId = this.dataset.id;
+            const mediaType = this.dataset.type || 'ANIME';
+            window.location.href = `/update_episode?id=${mediaId}&type=${mediaType}`;
+        });
+    });
+});
+
+</script>
