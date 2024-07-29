@@ -1,0 +1,136 @@
+body {
+    background-color: #0D1B2A;
+    margin: 0;
+    color: #E0E1DD;
+    font-family: 'Courier New', Courier, monospace;
+}
+header {
+    background-color: #1B263B;
+    height: 80px; /* Ustawienie stałej wysokości */
+    display: flex;
+    position: relative;
+    align-items: center;
+    overflow: hidden; /* Ukrycie wszystkiego, co wychodzi poza nagłówek */
+}
+header > svg {
+    width: 7%; /* Dostosowanie szerokości do nowej wysokości */
+    height: 55%; /* Dostosowanie wysokości do nowej wysokości */
+}
+.userdata > img {
+    border-radius: 10px;
+    height: 70%; /* Dostosowanie wysokości obrazka do wysokości kontenera */
+    object-fit: cover; /* Zachowanie proporcji obrazka */
+}
+.userdata {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-right: 10px;
+    font-size: 24px;
+}
+.userdata > p, img {
+    padding: 1%;
+}
+.label {
+background-color: #1B263B;
+padding: 3% 1%;
+margin: 1%;
+box-shadow: 5px 5px 5px black;
+border-radius: 10px;
+display: flex;
+gap: 1%;
+align-items: center;
+}
+
+.updatecomponent {
+position: relative;
+flex: 1; /* Umożliwia równomierne rozmieszczenie */
+border-radius: 10px;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+max-width: 25%; /* Ogranicza szerokość komponentu */
+}
+
+.updatecomponent img {
+width: 100%;
+display: block;
+border-radius: 10px;
+}
+
+.updatecomponent .overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+border-radius: 10px;
+z-index: 1;
+}
+
+.updatecomponent p {
+position: absolute;
+margin: 0;
+color: white;
+font-size: 1.5em;
+text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+z-index: 2;
+}
+
+.updatecomponent .title {
+top: 5%;
+left: 5%;
+}
+
+.updatecomponent .episode {
+bottom: 1%;
+left: 50%;
+transform: translateX(-50%);
+}
+
+.listbutton {
+background-color: #415A77;
+padding: 20px;
+height: 100%; /* Automatyczna wysokość */
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 10px;
+color: white;
+font-size: 1.5em;
+text-align: center;
+flex: 1; /* Pozostałe miejsce */
+max-width: 25%; /* Maksymalna szerokość */
+box-sizing: border-box;
+}
+
+.more > a {
+background-color: #415A77;
+color: #E0E1DD;
+text-decoration: none;
+text-align: center;
+border-radius: 10px;
+margin: -1% 1%;
+padding: 1%;
+width: 98%;
+display: block;
+box-sizing: border-box;
+}
+
+.more {
+background-color: #1B263B;
+padding: 3% 1%;
+margin: 1%;
+font-size: 20px;
+border-radius: 15px;
+box-shadow: 5px 5px 5px black;
+}
+h2{
+margin-bottom: -1%;
+margin-left: 1%;
+}

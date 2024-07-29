@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            /* background-color: #0D1B2A; */
+            margin: 0;
+            color: #E0E1DD;
+            background-color: #0D1B2A;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .banner {
+            background-image: url("../tlo.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            height: 20vh;
+            width: 100%;
+            background-color: #0D1B2A;
+        }
+        .main {
+            margin-top: -5%; /* Adjust as needed */
+            background: linear-gradient(to bottom, rgba(13, 27, 42, 0) 0%, rgba(13, 27, 42, 1) 30%), #0D1B2A;
+            padding: 1%;
+            margin:1%;
+            width: 98%; /* Ensure full width */
+            box-sizing: border-box;
+        }
+        .header {
+            display: flex;
+        }
+        .poster {
+            width: 30%;
+            height: 100%;
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px black;
+        }
+        .data {
+            padding-top: -1%;
+            height:50%;
+            margin: 1%;
+            padding: 1%;
+            background-color: #1B263B;
+            box-shadow: 5px 5px 5px black;
+            border-radius: 10px;
+        }
+        select{
+            margin: 1%;
+            padding: 1%;
+        }
+        .info{
+            width: 100%;
+            box-shadow: 5px 5px 5px black;
+            background-color: #1B263B;
+            border-radius: 10px;
+        }
+        table{
+            width: 98%;
+            margin: 1%;
+        }
+        td,th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner"> </div>
+    <div class="main">
+        <div class="header">
+            <img src="../okladka.jpg" class="poster">
+            <div style="width: 70%;">
+            <div class="data">
+                <h2>lorem ipsum</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ut doloremque reprehenderit saepe, illum ipsa dolores eos nostrum labore impedit assumenda quos repellat vero qui excepturi debitis aspernatur necessitatibus tempora?</p>
+            </div>
+            <select>
+                <option>Watching</option>
+                <option>Completed</option>
+                <option>On Hold</option>
+                <option>Dropped</option>
+                <option>Planning</option>
+            </select></div>
+        </div>
+        <div class="info">
+            <table>
+                <tr>
+            <th>Format</th>
+            <th>Episode Duration</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>Season</th>
+            <th>Average Score</th>
+            <th>Mean Score</th>
+            <th>Popularity</th>
+            <th>Favorites</th>
+            <th>Studios</th>
+        </tr>
+        <tr>
+            <td>TV</td>
+            <td>24 mins</td>
+            <td>Releasing</td>
+            <td>Oct 20, 1999</td>
+            <td>Fall 1999</td>
+            <td>88%</td>
+            <td>88%</td>
+            <td>534561</td>
+            <td>77952</td>
+            <td>Toei Animation</td>
+        </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
