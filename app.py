@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 CLIENT_ID = os.getenv('CLIENT_ID', 'ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET', 'TOKEN')
-REDIRECT_URI = 'https://materamaba.pythonanywhere.com/get'
+REDIRECT_URI = 'LINK'
 ANILIST_AUTHORIZE_URL = 'https://anilist.co/api/v2/oauth/authorize'
 ANILIST_TOKEN_URL = 'https://anilist.co/api/v2/oauth/token'
 
