@@ -1,11 +1,239 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Anime Search</title>
+    <style>
+        body {
+            background-color: #0D1B2A;
+            margin: 0;
+            color: #E0E1DD;
+            font-family: 'Poppins', sans-serif;
+        }
+        .label {
+            background-color: #1B263B;
+            padding: 1%;
+            margin: 1%;
+            box-shadow: 5px 5px 5px black;
+            border-radius: 10px;
+            display: flex;
+            gap: 1%;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .updatecomponent {
+            position: relative;
+            flex: 1 1 calc(25% - 1%);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            max-width: calc(24% - 1%);
+            box-sizing: border-box;
+            margin: 0.5%;
+            cursor: pointer; /* Dodano wskaźnik kursora */
+        }
+
+        .updatecomponent img {
+            width: 100%;
+            height: 20vh;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .updatecomponent .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .updatecomponent p {
+            position: absolute;
+            margin: 0;
+            color: white;
+            word-wrap: break-word;
+            width:99%;
+            margin-left:0.5%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .updatecomponent .title {
+            top: 3%;
+            left: 3%;
+            font-size: medium;
+        }
+
+        .updatecomponent .episode {
+            bottom: 1%;
+            text-align: center;
+            font-size: small;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: -1%;
+            margin-left: 1%;
+        }
+        header{
+            width:100%;
+            text-align:center;
+            display:flex;
+        }
+        form{
+            width:80%;
+        }
+        .search {
+            margin:1%;
+            width:50%;
+            border: none;
+            background:none;
+            font-size:24px;
+            border-bottom:1px #E0E1DD solid;
+            color: #E0E1DD;
+        }
+        button{
+            border: none;
+            background:none;
+            background-color:#1B263B;
+            border-radius:10px;
+            font-size:20px;
+            color: #E0E1DD;
+            padding:1%;
+        }
+        a{
+            text-decoration:none;
+            color:#E0E1DD;
+            font-size:3vh;
+            padding:1%;
+        }
+        .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+    </style>
 </head>
 <body>
-    <input type="search">
+<header>
+    <form action="/search" method="get">
+        <input type="text" class="search" name="q" placeholder="Search" value="{{ query }}">
+        <button type="submit">Search</button>
+        <label class="switch">
+            <input type="checkbox" name="isAdult" id="isAdult" {% if isAdult %}checked{% endif %}>
+            <span class="slider round"></span>
+        </label>
+        <label for="isAdult">18+</label>
+    </form>
+</header>
+
+
+
+        {% if anime %}
+            <h2>Anime</h2>
+            <div class="label">
+            {% for a in anime %}
+            <div class="updatecomponent" data-id="{{ a.id }}" data-progress="{{ a.progress }}" data-type="ANIME">
+                <p class="title">{{ a.title.romaji or a.title.english or a.title.native }}</p>
+                <div class="overlay" data-id="{{ a.id }}"></div>
+                <img src="{{ a.coverImage.large }}" alt="{{ a.title.romaji }}">
+            </div>
+            {% endfor %}
+        {% elif query %}
+            <h2>Anime</h2>
+            <div class="label">
+            <p>No results found for "{{ query }}".</p>
+        {% endif %}
+    </div>
+
+
+        {% if manga %}
+        <h2>Manga</h2>
+        <div class="label">
+            {% for a in manga %}
+            <div class="updatecomponent" data-id="{{ a.id }}" data-progress="{{ a.progress }}" data-type="ANIME">
+                <p class="title">{{ a.title.romaji or a.title.english or a.title.native }}</p>
+                <div class="overlay" data-id="{{ a.id }}"></div>
+                <img src="{{ a.coverImage.large }}" alt="{{ a.title.romaji }}">
+            </div>
+            {% endfor %}
+        {% elif query %}
+            <h2>Manga</h2>
+            <div class="label">
+            <p>No results found for "{{ query }}".</p>
+        {% endif %}
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pobieramy wszystkie elementy z klasą 'updatecomponent'
+            const components = document.querySelectorAll('.updatecomponent');
+
+            // Dodajemy nasłuchiwacz zdarzeń kliknięcia do każdego elementu
+            components.forEach(function(component) {
+                component.addEventListener('click', function() {
+                    const id = component.getAttribute('data-id');
+                    if (id) {
+                        // Przekierowujemy użytkownika do strony /about?id=<id>
+                        window.location.href = '../about?id=' + id;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
