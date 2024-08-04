@@ -3,114 +3,401 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>{{ media.title.romaji if media.title and media.title.romaji else 'Media' }}</title>
     <style>
         body {
-            /* background-color: #0D1B2A; */
             margin: 0;
             color: #E0E1DD;
-            background-color: #0D1B2A;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d1b2a;
+            font-family: 'Poppins', sans-serif;
         }
         .banner {
-            background-image: url("../tlo.jpg");
-            background-size: 100%;
-            background-repeat: no-repeat;
+            background-image: url("{{ media.bannerImage if media.bannerImage else 'fallback-image-url.jpg' }}");
+            background-size: cover;
+            background-position: center;
             height: 20vh;
             width: 100%;
-            background-color: #0D1B2A;
+            margin-bottom: -10vh;
         }
         .main {
-            margin-top: -5%; /* Adjust as needed */
-            background: linear-gradient(to bottom, rgba(13, 27, 42, 0) 0%, rgba(13, 27, 42, 1) 30%), #0D1B2A;
+            background: linear-gradient(0deg, rgba(13,27,42,1) 85%, rgba(0,0,0,0) 100%);
             padding: 1%;
-            margin:1%;
-            width: 98%; /* Ensure full width */
+            width: 100%;
             box-sizing: border-box;
         }
         .header {
-            display: flex;
+            align-items: center;
         }
         .poster {
-            width: 30%;
-            height: 100%;
+            width: 48%;
+            height: auto;
             border-radius: 10px;
             box-shadow: 5px 5px 5px black;
+        }
+        .titles {
+            width: 49%;
+            bottom: 0%;
+            left: 50%;
+            margin: 1%;
+            padding: 1%;
+            position: absolute;
+            line-height: 0.8;
         }
         .data {
-            padding-top: -1%;
-            height:50%;
-            margin: 1%;
             padding: 1%;
+            margin: 1%;
             background-color: #1B263B;
             box-shadow: 5px 5px 5px black;
             border-radius: 10px;
+            max-height: 80%;
         }
-        select{
-            margin: 1%;
+        .data h2, p, sub {
+            margin-top: 0;
             padding: 1%;
         }
-        .info{
-            width: 100%;
+        .data h2 {
+            margin-bottom: 0;
+        }
+        select {
+            margin: 1%;
+            padding: 1%;
+            width: 98%;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            color: #E0E1DD;
+            background-color: #1B263B;
+        }
+        .info {
+            width: 97%;
             box-shadow: 5px 5px 5px black;
             background-color: #1B263B;
             border-radius: 10px;
+            padding: 1%;
+            margin: 1%;
         }
-        table{
+        table {
             width: 98%;
             margin: 1%;
+            border-collapse: collapse;
         }
-        td,th{
+        td, th {
             text-align: center;
+            font-size: small;
+            padding: 0.3em;
+            border-bottom: 1px solid white;
+        }
+        th {
+            background-color: #2C3E50;
+        }
+        ul {
+            max-height: 25vh;
+            text-align: left;
+            overflow: auto;
+            width: auto;
+        }
+        #vid {
+            display: none; /* Domyślnie ukryte */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #vid video {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        /* New styles for the themes container */
+        #themes-container {
+            margin: 2% 0;
+        }
+        #themes-container h3 {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .themes-list {
+            display: flex;
+            justify-content: space-between;
+            gap: 1em;
+        }
+        .themes-list ol {
+            width: 48%;
+            padding: 1%;
+            background-color: #1B263B;
+            border-radius: 10px;
+            box-shadow: 5px 5px 5px black;
+            margin: 0;
+            list-style-type: none;
+        }
+        .themes-list ol li {
+            margin: 0.5em 0;
+            cursor: pointer;
+            color: #E0E1DD;
         }
     </style>
 </head>
 <body>
-    <div class="banner"> </div>
+
+    <div class="banner"></div>
     <div class="main">
         <div class="header">
-            <img src="../okladka.jpg" class="poster">
-            <div style="width: 70%;">
-            <div class="data">
-                <h2>lorem ipsum</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio ut doloremque reprehenderit saepe, illum ipsa dolores eos nostrum labore impedit assumenda quos repellat vero qui excepturi debitis aspernatur necessitatibus tempora?</p>
+            <div style="display:flex; position:relative;">
+                <img src="{{ media.coverImage.large if media.coverImage and media.coverImage.large else 'fallback-poster-url.jpg' }}" class="poster" alt="Poster">
+                <div class="titles">
+                    <h2>{{ media.title.romaji if media.title and media.title.romaji else 'Unknown Title' }}</h2>
+                    <sub>{{ media.title.english if media.title and media.title.english else '' }} {{ media.title.native if media.title and media.title.native else '' }}</sub>
+                </div>
             </div>
-            <select>
-                <option>Watching</option>
-                <option>Completed</option>
-                <option>On Hold</option>
-                <option>Dropped</option>
-                <option>Planning</option>
-            </select></div>
+        </div><br>
+        <div class="data">
+            <p>{{ media.description|safe if media.description else 'No description available.' }}</p>
         </div>
+        <select id="status">
+            <option>Watching</option>
+            <option>Completed</option>
+            <option>On Hold</option>
+            <option>Dropped</option>
+            <option>Planning</option>
+        </select>
+
         <div class="info">
             <table>
                 <tr>
-            <th>Format</th>
-            <th>Episode Duration</th>
-            <th>Status</th>
-            <th>Start Date</th>
-            <th>Season</th>
-            <th>Average Score</th>
-            <th>Mean Score</th>
-            <th>Popularity</th>
-            <th>Favorites</th>
-            <th>Studios</th>
-        </tr>
-        <tr>
-            <td>TV</td>
-            <td>24 mins</td>
-            <td>Releasing</td>
-            <td>Oct 20, 1999</td>
-            <td>Fall 1999</td>
-            <td>88%</td>
-            <td>88%</td>
-            <td>534561</td>
-            <td>77952</td>
-            <td>Toei Animation</td>
-        </tr>
+                    <th>Format</th>
+                    <th>{{ 'Episodes' if media.episodes else 'Chapters' }}</th>
+                    <th>{{ 'Duration' if media.episodes else 'Volumes' }}</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>{{ media.format if media.format else 'N/A' }}</td>
+                    {% if media.episodes %}
+                        <td>{{ media.episodes }}</td>
+                        <td>{{ media.duration if media.duration else 'N/A' }} mins</td>
+                    {% elif media.chapters %}
+                        <td>{{ media.chapters }}</td>
+                        <td>{{ media.volumes if media.volumes else 'N/A' }}</td>
+                    {% else %}
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    {% endif %}
+                    <td>{{ media.status if media.status else 'N/A' }}</td>
+                </tr>
+            </table>
+            {% if media.startDate or media.endDate or media.season %}
+            <table>
+                <tr>
+                    <th>Start Date</th>
+                    <th>Finish Date</th>
+                    {% if media.season %}<th>Season</th>{% endif %}
+                </tr>
+                <tr>
+                    <td>
+                        {% if media.startDate %}
+                            {{ media.startDate.day }}/{{ media.startDate.month }}/{{ media.startDate.year }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if media.endDate %}
+                            {{ media.endDate.day}}/{{ media.endDate.month}}/{{ media.endDate.year}}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    {% if media.season %}<td>{{ media.season}} {{ media.seasonYear}}</td>{% endif %}
+                </tr>
+            </table>
+            {% endif %}
+            <table>
+                <tr>
+                    <th>Avg Score</th>
+                    <th>Mean Score</th>
+                    <th>Popularity</th>
+                    <th>Source</th>
+                </tr>
+                <tr>
+                    <td>{{ media.averageScore if media.averageScore else 'N/A' }}%</td>
+                    <td>{{ media.meanScore if media.meanScore else 'N/A' }}%</td>
+                    <td>{{ media.popularity if media.popularity else 'N/A' }}</td>
+                    <td>{{ media.source if media.source else 'N/A' }}</td>
+                </tr>
             </table>
         </div>
+        <div style="display:flex; text-align:center;">
+            {% if media.tags %}
+            <ul>
+                <h4>Tags</h4>
+                {% for tag in media.tags %}
+                    <li>{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% if media.studios and media.studios.edges %}
+            <ul>
+                <h4>Studios</h4>
+                {% for studio in media.studios.edges %}
+                    <li>{{ studio.node.name }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div id="themes-container">
+            <h3>Anime Themes</h3>
+            <div class="themes-list">
+                <ol id="opening-themes">
+                    <!-- Opening themes will be injected here -->
+                </ol>
+                <ol id="ending-themes">
+                    <!-- Ending themes will be injected here -->
+                </ol>
+            </div>
+        </div>
+
+        <div id="vid">
+            <video controls>
+                <source id="src" src="" type="video/webm">
+            </video>
+        </div>
+
     </div>
+
+    <script>
+        // Function to fetch and display anime themes directly from AnimeThemes API
+        async function displayAnimeThemes(anilist_id, media_type) {
+            // Check if the media type is MANGA; if so, don't display themes
+            if (media_type === "MANGA") {
+                document.getElementById('themes-container').innerHTML = '<h3>Anime Themes</h3>';
+                return;
+            }
+
+            // Construct the URL to fetch themes from AnimeThemes API
+            const include = "animethemes.animethemeentries.videos,animethemes.song,animethemes.song.artists";
+            const url = `https://api.animethemes.moe/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=${include}`;
+
+            try {
+                // Fetch data from AnimeThemes API
+                const response = await fetch(url, {
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                // Check if the response is OK (status code 200-299)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Parse the JSON response
+                const data = await response.json();
+
+                // Find the first anime entry
+                const animeList = data.anime || [];
+                if (animeList.length === 0) {
+                    throw new Error('No anime found for the given ID.');
+                }
+
+                // Extract themes information
+                const anime = animeList[0];
+                const animethemes = anime.animethemes || [];
+                if (animethemes.length === 0) {
+                    throw new Error('No themes available for this anime.');
+                }
+
+                const openingList = document.getElementById('opening-themes');
+                const endingList = document.getElementById('ending-themes');
+
+                // Clear existing content
+                openingList.innerHTML = '';
+                endingList.innerHTML = '';
+
+                // Filter and display Opening Themes (OP)
+                const openings = animethemes.filter(theme => theme.type === 'OP');
+                if (openings.length > 0) {
+                    openings.forEach(theme => {
+                        const song = theme.song || {};
+                        const songTitle = song.title || 'Unknown Title';
+                        const artists = (song.artists || []).map(artist => artist.name).join(', ') || 'Unknown Artist';
+                        const entries = theme.animethemeentries || [];
+                        let videoUrl = 'No Video Link';
+                        if (entries.length > 0 && entries[0].videos.length > 0) {
+                            videoUrl = entries[0].videos[0].link;
+                        }
+                        openingList.innerHTML += `<li class="song OP" onclick="vid('${videoUrl}')">
+                            ${artists} - "${songTitle}"
+                        </li>`;
+                    });
+                } else {
+                    openingList.innerHTML = '<li>No Opening Themes available.</li>';
+                }
+
+                // Filter and display Ending Themes (ED)
+                const endings = animethemes.filter(theme => theme.type === 'ED');
+                if (endings.length > 0) {
+                    endings.forEach(theme => {
+                        const song = theme.song || {};
+                        const songTitle = song.title || 'Unknown Title';
+                        const artists = (song.artists || []).map(artist => artist.name).join(', ') || 'Unknown Artist';
+                        const entries = theme.animethemeentries || [];
+                        let videoUrl = 'No Video Link';
+                        if (entries.length > 0 && entries[0].videos.length > 0) {
+                            videoUrl = entries[0].videos[0].link;
+                        }
+                        endingList.innerHTML += `<li class="song ED" onclick="vid('${videoUrl}')">
+                            ${artists} - "${songTitle}"
+                        </li>`;
+                    });
+                } else {
+                    endingList.innerHTML = '<li>No Ending Themes available.</li>';
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+                document.getElementById('themes-container').innerHTML = `<p>Failed to retrieve data: ${error.message}</p>`;
+            }
+        }
+
+        // Example call
+        displayAnimeThemes({{ media.id }}, "{{ media.format}}"); // Replace {{ media.id }} with the actual anime ID from the backend
+
+        function vid(v) {
+            var vidElement = document.getElementById('vid');
+            var srcElement = document.getElementById('src');
+            vidElement.style.display = "flex";
+            srcElement.setAttribute('src', v);
+            srcElement.parentElement.load(); // Load the new video source
+        }
+
+        function hideVid() {
+            var vidElement = document.getElementById('vid');
+            vidElement.style.display = "none";
+            var srcElement = document.getElementById('src');
+            srcElement.setAttribute('src', '');
+            srcElement.parentElement.load(); // Reset the video element
+        }
+
+        // Add event listener to execute code when the page loads
+        window.addEventListener('load', function() {
+            hideVid(); // Hide video modal when the page loads
+        });
+
+        // Add event listener to hide the video modal when clicking outside the video
+        document.getElementById('vid').addEventListener('click', function(event) {
+            // Check if the click is outside the video element
+            if (event.target.tagName !== 'VIDEO' && event.target.tagName !== 'SOURCE') {
+                hideVid();
+            }
+        });
+    </script>
+
 </body>
 </html>
