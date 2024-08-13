@@ -6,143 +6,208 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <title>{{ media.title.romaji if media.title and media.title.romaji else 'Media' }}</title>
     <style>
-        body {
-            margin: 0;
-            color: #E0E1DD;
-            background-color: #0d1b2a;
-            font-family: 'Poppins', sans-serif;
-        }
-        .banner {
-            background-image: url("{{ media.bannerImage if media.bannerImage else 'fallback-image-url.jpg' }}");
-            background-size: cover;
-            background-position: center;
-            height: 20vh;
-            width: 100%;
-            margin-bottom: -10vh;
-        }
-        .main {
-            background: linear-gradient(0deg, rgba(13,27,42,1) 85%, rgba(0,0,0,0) 100%);
-            padding: 1%;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .header {
-            align-items: center;
-        }
-        .poster {
-            width: 48%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 5px 5px 5px black;
-        }
-        .titles {
-            width: 49%;
-            bottom: 0%;
-            left: 50%;
-            margin: 1%;
-            padding: 1%;
-            position: absolute;
-            line-height: 0.8;
-        }
-        .data {
-            padding: 1%;
-            margin: 1%;
-            background-color: #1B263B;
-            box-shadow: 5px 5px 5px black;
-            border-radius: 10px;
-            max-height: 80%;
-        }
-        .data h2, p, sub {
-            margin-top: 0;
-            padding: 1%;
-        }
-        .data h2 {
-            margin-bottom: 0;
-        }
-        select {
-            margin: 1%;
-            padding: 1%;
-            width: 98%;
-            text-align: center;
-            border: none;
-            border-radius: 10px;
-            color: #E0E1DD;
-            background-color: #1B263B;
-        }
-        .info {
-            width: 97%;
-            box-shadow: 5px 5px 5px black;
-            background-color: #1B263B;
-            border-radius: 10px;
-            padding: 1%;
-            margin: 1%;
-        }
-        table {
-            width: 98%;
-            margin: 1%;
-            border-collapse: collapse;
-        }
-        td, th {
-            text-align: center;
-            font-size: small;
-            padding: 0.3em;
-            border-bottom: 1px solid white;
-        }
-        th {
-            background-color: #2C3E50;
-        }
-        ul {
-            max-height: 25vh;
-            text-align: left;
-            overflow: auto;
-            width: auto;
-        }
-        #vid {
-            display: none; /* Domyślnie ukryte */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            margin: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #vid video {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        /* New styles for the themes container */
-        #themes-container {
-            margin: 2% 0;
-        }
-        #themes-container h3 {
-            text-align: center;
-            margin-bottom: 1em;
-        }
-        .themes-list {
-            display: flex;
-            justify-content: space-between;
-            gap: 1em;
-        }
-        .themes-list ol {
-            width: 48%;
-            padding: 1%;
-            background-color: #1B263B;
-            border-radius: 10px;
-            box-shadow: 5px 5px 5px black;
-            margin: 0;
-            list-style-type: none;
-        }
-        .themes-list ol li {
-            margin: 0.5em 0;
-            cursor: pointer;
-            color: #E0E1DD;
-        }
-    </style>
+    body {
+        margin: 0;
+        color: #E0E1DD;
+        background-color: #0d1b2a;
+        font-family: 'Poppins', sans-serif;
+        box-sizing: border-box;
+    }
+    *, *::before, *::after {
+        box-sizing: inherit;
+    }
+    .banner {
+        background-image: url("{{ media.bannerImage if media.bannerImage else 'fallback-image-url.jpg' }}");
+        background-size: cover;
+        background-position: center;
+        height: 20vh;
+        width: 100%;
+        margin-bottom: -10vh;
+    }
+    .main {
+        background: linear-gradient(0deg, rgba(13,27,42,1) 85%, rgba(0,0,0,0) 100%);
+        padding: 1%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .header {
+        align-items: center;
+    }
+    .poster {
+        width: 48%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px black;
+    }
+    .titles {
+        width: 49%;
+        bottom: 0%;
+        left: 50%;
+        margin: 1% 0%;
+        padding: 1%;
+        position: absolute;
+        /*line-height: 0.9;*/
+    }
+    .data {
+        padding: 1%;
+        margin: 1%;
+        background-color: #1B263B;
+        box-shadow: 5px 5px 5px black;
+        border-radius: 10px;
+        max-height: 80%;
+    }
+    .data h2 {
+        margin-bottom: 0;
+    }
+    select {
+        margin: 1%;
+        padding: 1%;
+        width: calc(100% - 2%);
+        text-align: center;
+        border: none;
+        border-radius: 10px;
+        color: #E0E1DD;
+        background-color: #1B263B;
+    }
+    .info {
+        width: 98%;
+        box-shadow: 5px 5px 5px black;
+        background-color: #1B263B;
+        border-radius: 10px;
+        margin: 1%;
+        overflow-x: auto;
+    }
+    table {
+        width: 98%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        margin:1%;
+        padding: 1%;
+        box-sizing: border-box;
+    }
+    td, th {
+        text-align: center;
+        font-size: small;
+        padding: 1%;
+        border-bottom: 1px solid white;
+    }
+    tr {
+        border-radius: 10px;
+    }
+    th {
+        background-color: #2C3E50;
+    }
+    ul {
+        max-height: 25vh;
+        text-align: left;
+        overflow: auto;
+        width: auto;
+    }
+    #vid {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #vid video {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    #themes-container {
+        margin: 2% 0;
+    }
+    #themes-container h3 {
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    .themes-list {
+        display: flex;
+        justify-content: space-between;
+        gap: 1em;
+    }
+.themes-list ol {
+    width: 48%;
+    padding: 1%;
+    background-color: #1B263B;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px black;
+    margin: 1%;
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+.themes-list ol li {
+    margin: 1%;
+    border: 2px solid #E0E1DD;
+    border-radius: 10px;
+    padding-left: 2%;
+    list-style: decimal inside;
+    color: #E0E1DD;
+}
+
+.rels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 10px;
+}
+
+.relcomponent {
+    position: relative;
+    margin: 1%;
+    flex: 0 1 calc(33% - 2%);
+    box-sizing: border-box;
+    border-radius:10px;
+    overflow-wrap: break-word;
+}
+
+.relcomponent img {
+    height: 30vh;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius:10px;
+}
+
+.relcomponent .text-overlay {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    color: white;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    padding: 1%;
+}
+
+.relcomponent .top-text {
+    top: 0;
+    font-size: smaller;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+}
+
+.relcomponent .bottom-text {
+    bottom: 0;
+    font-size:smaller;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+}
+
+
+
+</style>
+
 </head>
 <body>
 
@@ -152,7 +217,7 @@
             <div style="display:flex; position:relative;">
                 <img src="{{ media.coverImage.large if media.coverImage and media.coverImage.large else 'fallback-poster-url.jpg' }}" class="poster" alt="Poster">
                 <div class="titles">
-                    <h2>{{ media.title.romaji if media.title and media.title.romaji else 'Unknown Title' }}</h2>
+                    <h2 id="title">{{ media.title.romaji if media.title and media.title.romaji else 'Unknown Title' }}</h2>
                     <sub>{{ media.title.english if media.title and media.title.english else '' }} {{ media.title.native if media.title and media.title.native else '' }}</sub>
                 </div>
             </div>
@@ -160,13 +225,18 @@
         <div class="data">
             <p>{{ media.description|safe if media.description else 'No description available.' }}</p>
         </div>
-        <select id="status">
-            <option>Watching</option>
-            <option>Completed</option>
-            <option>On Hold</option>
-            <option>Dropped</option>
-            <option>Planning</option>
-        </select>
+        {{ status['status'] }}
+<select id="status" name="status">
+    <option value="current" {% if status['status'] == 'CURRNET' %}selected{% endif %}>Currently Watching</option>
+    <option value="completed" {% if status['status'] == 'COMPLETED' %}selected{% endif %}>Completed</option>
+    <option value="paused" {% if status['status'] == 'PAUSED' %}selected{% endif %}>Paused</option>
+    <option value="dropped" {% if status['status'] == 'DROPED' %}selected{% endif %}>Dropped</option>
+    <option value="planning" {% if status['status'] == 'PLANNING' %}selected{% endif %}>Planning</option>
+    <option value="add_to_list" {% if status['status'] == 'add_to_list' %}selected{% endif %}>Add to List</option>
+</select>
+
+        <input type="hidden" name="media_id" value="{{ media.id }}">
+    </form>
 
         <div class="info">
             <table>
@@ -177,7 +247,7 @@
                     <th>Status</th>
                 </tr>
                 <tr>
-                    <td>{{ media.format if media.format else 'N/A' }}</td>
+                    <td id="format">{{ media.format if media.format else 'N/A' }}</td>
                     {% if media.episodes %}
                         <td>{{ media.episodes }}</td>
                         <td>{{ media.duration if media.duration else 'N/A' }} mins</td>
@@ -213,7 +283,7 @@
                             N/A
                         {% endif %}
                     </td>
-                    {% if media.season %}<td>{{ media.season}} {{ media.seasonYear}}</td>{% endif %}
+                    {% if media.season %}<td>{{ media.season}}</td>{% endif %}
                 </tr>
             </table>
             {% endif %}
@@ -234,21 +304,41 @@
         </div>
         <div style="display:flex; text-align:center;">
             {% if media.tags %}
+            <div>
+            <h4>Tags</h4>
             <ul>
-                <h4>Tags</h4>
                 {% for tag in media.tags %}
                     <li>{{ tag.name }}</li>
                 {% endfor %}
-            </ul>
+            </ul></div>
             {% endif %}
             {% if media.studios and media.studios.edges %}
+            <div><h4>Studios</h4>
             <ul>
-                <h4>Studios</h4>
                 {% for studio in media.studios.edges %}
                     <li>{{ studio.node.name }}</li>
                 {% endfor %}
-            </ul>
+            </ul></div>
             {% endif %}
+        </div>
+
+<h2>Relations</h2>
+<div class="rels">
+
+
+    {% for relation in media.relations.edges %}
+        <div class="relcomponent">
+            <a href="../about?id={{ relation.node.id }}">
+                <img src="{{ relation.node.coverImage.medium }}" alt="{{ relation.node.title.romaji }} cover">
+                <div class="text-overlay top-text">
+                    <strong>{{ relation.relationType }}</strong>
+                </div>
+                <div class="text-overlay bottom-text">
+                    {{ relation.node.title.romaji }}
+                </div>
+            </a>
+        </div>
+    {% endfor %}
         </div>
 
         <div id="themes-container">
@@ -263,29 +353,30 @@
             </div>
         </div>
 
-        <div id="vid">
+
+        <div id="vid" style="display:none;">
             <video controls>
                 <source id="src" src="" type="video/webm">
             </video>
         </div>
 
+
+
+
+
     </div>
 
     <script>
-        // Function to fetch and display anime themes directly from AnimeThemes API
         async function displayAnimeThemes(anilist_id, media_type) {
-            // Check if the media type is MANGA; if so, don't display themes
-            if (media_type === "MANGA") {
-                document.getElementById('themes-container').innerHTML = '<h3>Anime Themes</h3>';
+            if (media_type == "MANGA" || media_type == "NOVEL") {
+                document.getElementById('themes-container').innerHTML = '';
                 return;
             }
 
-            // Construct the URL to fetch themes from AnimeThemes API
             const include = "animethemes.animethemeentries.videos,animethemes.song,animethemes.song.artists";
             const url = `https://api.animethemes.moe/anime?filter[has]=resources&filter[site]=AniList&filter[external_id]=${anilist_id}&include=${include}`;
 
             try {
-                // Fetch data from AnimeThemes API
                 const response = await fetch(url, {
                     headers: {
                         "Accept": "application/json",
@@ -293,21 +384,17 @@
                     }
                 });
 
-                // Check if the response is OK (status code 200-299)
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                // Parse the JSON response
                 const data = await response.json();
 
-                // Find the first anime entry
                 const animeList = data.anime || [];
                 if (animeList.length === 0) {
                     throw new Error('No anime found for the given ID.');
                 }
 
-                // Extract themes information
                 const anime = animeList[0];
                 const animethemes = anime.animethemes || [];
                 if (animethemes.length === 0) {
@@ -317,44 +404,41 @@
                 const openingList = document.getElementById('opening-themes');
                 const endingList = document.getElementById('ending-themes');
 
-                // Clear existing content
                 openingList.innerHTML = '';
                 endingList.innerHTML = '';
 
-                // Filter and display Opening Themes (OP)
                 const openings = animethemes.filter(theme => theme.type === 'OP');
                 if (openings.length > 0) {
                     openings.forEach(theme => {
                         const song = theme.song || {};
-                        const songTitle = song.title || 'Unknown Title';
-                        const artists = (song.artists || []).map(artist => artist.name).join(', ') || 'Unknown Artist';
+                        const songTitle = song.title || '';
+                        const artists = (song.artists || []).map(artist => artist.name + ' - ').join('') || '';
                         const entries = theme.animethemeentries || [];
                         let videoUrl = 'No Video Link';
                         if (entries.length > 0 && entries[0].videos.length > 0) {
                             videoUrl = entries[0].videos[0].link;
                         }
                         openingList.innerHTML += `<li class="song OP" onclick="vid('${videoUrl}')">
-                            ${artists} - "${songTitle}"
+                            ${artists}"${songTitle}"
                         </li>`;
                     });
                 } else {
                     openingList.innerHTML = '<li>No Opening Themes available.</li>';
                 }
 
-                // Filter and display Ending Themes (ED)
                 const endings = animethemes.filter(theme => theme.type === 'ED');
                 if (endings.length > 0) {
                     endings.forEach(theme => {
                         const song = theme.song || {};
                         const songTitle = song.title || 'Unknown Title';
-                        const artists = (song.artists || []).map(artist => artist.name).join(', ') || 'Unknown Artist';
+                        const artists = (song.artists || []).map(artist => artist.name + ' - ').join('') || '';
                         const entries = theme.animethemeentries || [];
                         let videoUrl = 'No Video Link';
                         if (entries.length > 0 && entries[0].videos.length > 0) {
                             videoUrl = entries[0].videos[0].link;
                         }
                         endingList.innerHTML += `<li class="song ED" onclick="vid('${videoUrl}')">
-                            ${artists} - "${songTitle}"
+                            ${artists}"${songTitle}"
                         </li>`;
                     });
                 } else {
@@ -366,15 +450,14 @@
             }
         }
 
-        // Example call
-        displayAnimeThemes({{ media.id }}, "{{ media.format}}"); // Replace {{ media.id }} with the actual anime ID from the backend
+        displayAnimeThemes({{ media.id }}, "{{ media.format}}");
 
         function vid(v) {
             var vidElement = document.getElementById('vid');
             var srcElement = document.getElementById('src');
             vidElement.style.display = "flex";
             srcElement.setAttribute('src', v);
-            srcElement.parentElement.load(); // Load the new video source
+            srcElement.parentElement.load();
         }
 
         function hideVid() {
@@ -382,21 +465,46 @@
             vidElement.style.display = "none";
             var srcElement = document.getElementById('src');
             srcElement.setAttribute('src', '');
-            srcElement.parentElement.load(); // Reset the video element
+            srcElement.parentElement.load();
         }
 
-        // Add event listener to execute code when the page loads
         window.addEventListener('load', function() {
-            hideVid(); // Hide video modal when the page loads
+            hideVid();
         });
 
-        // Add event listener to hide the video modal when clicking outside the video
         document.getElementById('vid').addEventListener('click', function(event) {
-            // Check if the click is outside the video element
             if (event.target.tagName !== 'VIDEO' && event.target.tagName !== 'SOURCE') {
                 hideVid();
             }
         });
+
+
+document.getElementById("status").addEventListener("change", function() {
+    var selectedStatus = this.value;
+    var mediaId = "{{ media.id }}";
+
+    fetch('/update_status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            status: selectedStatus,
+            media_id: mediaId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log("Status updated successfully!");
+        } else {
+            console.log("Failed to update status: " + data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+
     </script>
 
 </body>
