@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anilist Activity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0D1B2A;
+            margin: 0;
+            color: #E0E1DD;
+            font-family: 'Poppins', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #E0E1DD;
+        }
+        .act {
+            text-align: center;
+        }
+        .comp {
+            background-color: #1B263B;
+            padding: 1%;
+            margin: 1%;
+            box-shadow: 5px 5px 5px black;
+            border-radius: 10px;
+            position: relative;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        .user-info sub {
+            position: absolute;
+            color: grey;
+            right: 1%;
+            top: 1%;
+        }
+        .user-info img {
+            width: 10%;
+            height: 10%;
+            border-radius: 50%;
+            margin: 1%;
+        }
+        .data {
+            display: flex;
+        }
+        .data img {
+            width: 30%;
+            margin: 1%;
+            border-radius: 10px;
+        }
+        .info {
+            margin-left: 1%;
+            width: 70%;
+        }
+        .yt {
+            display: flex;
+            position: relative;
+        }
+        .yt form {
+            position: absolute;
+            right: 1%;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1% 0;
+        }
+
+        .pagination a, .pagination span {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #E0E1DD;
+            background-color: #1B263B;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px black;
+        }
+
+        .pagination span {
+            margin: 0;
+        }
+        
+
+        form select, form input, form button {
+            border: none;
+            border-radius: 5px;
+        }
+
+        form select, form input {
+            background-color: #415A77;
+            color: #E0E1DD;
+        }
+
+        form button {
+            color: #E0E1DD;
+            background-color: #415A77;
+        }
+    </style>
+</head>
+<body>
+    <h1>Activity Feed for {{ username }}</h1>
+
+    <div class="act">
+        <a href="{{ url_for('activity', filter='following') }}">Following Activity</a> |
+        <a href="{{ url_for('activity', filter='global') }}">Global Activity</a>
+    </div>
+
+    {% for activity in activities %}
+    <div class="comp">
+        <div class="user-info">
+            <img src="{{ activity.user.avatar.medium }}" alt="{{ activity.user.name }}">
+            <strong>{{ activity.user.name }}</strong>
+            <sub>{{ activity.createdAt | datetimeformat }}</sub>
+        </div>
+        <div class="data">
+            <img src="{{ activity.media.coverImage.medium }}" alt="Media Cover Image">
+            <div class="info">
+                {{ activity.status }}
+                {% if activity.progress %}
+                    {{ activity.progress }} of
+                {% endif %}
+                <a href="../about?id={{ activity.media.id }}">{{ activity.media.title.romaji }}</a>
+            </div>
+        </div>
+        <div class="yt">
+            <a href="{{ url_for('like', activity_id=activity.id) }}">
+                {% if activity.isLiked %}
+                    ❤️
+                {% else %}
+                    🤍
+                {% endif %}
+            </a>
+            {{ activity.likeCount }}
+            <form action="{{ url_for('comment', activity_id=activity.id) }}" method="get">
+                <input type="text" name="comment" placeholder="Leave a comment">
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="{{ url_for('activity', filter=current_filter, page=page - 1) }}">Previous</a>
+        {% endif %}
+        <span>{{ page }}</span>
+        {% if next_page %}
+            <a href="{{ url_for('activity', filter=current_filter, page=page + 1) }}">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>
