@@ -11,6 +11,7 @@
             color: #E0E1DD;
             font-family: 'Poppins', sans-serif;
         }
+
         .label {
             background-color: #1B263B;
             padding: 1%;
@@ -34,7 +35,6 @@
             max-width: calc(24% - 1%);
             box-sizing: border-box;
             margin: 0.5%;
-            cursor: pointer; /* Dodano wskaźnik kursora */
         }
 
         .updatecomponent img {
@@ -88,27 +88,52 @@
             text-align:center;
             display:flex;
         }
-        form{
-            width:80%;
+ header {
+            background-color: #1B263B;
+            height: 8vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
-        .search {
-            margin:1%;
+
+        header form {
+            display: flex;
+            align-items: center;
+            gap: 1%;
+            padding: 0 1%;
+        }
+        input{
             width:50%;
+        }
+
+        header select, header input, header button {
+            padding: 1%;
             border: none;
-            background:none;
-            font-size:24px;
-            border-bottom:1px #E0E1DD solid;
+            border-radius: 5px;
+            font-size: large;
+        }
+
+        header select, header input {
+            background-color: #415A77;
             color: #E0E1DD;
         }
-        button{
-            border: none;
-            background:none;
-            background-color:#1B263B;
-            border-radius:10px;
-            font-size:20px;
+
+        header button {
+            background-color: #1B263B;
             color: #E0E1DD;
-            padding:1%;
+            cursor: pointer;
+            background-color: #415A77;
         }
+
+        .label {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1%;
+            padding: 1%;
+            box-sizing: border-box;
+        }
+
         a{
             text-decoration:none;
             color:#E0E1DD;
@@ -118,8 +143,8 @@
         .switch {
         position: relative;
         display: inline-block;
-        width: 60px;
-        height: 34px;
+        width: 64px;
+        height:34px;
     }
 
     .switch input {
@@ -220,15 +245,12 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Pobieramy wszystkie elementy z klasą 'updatecomponent'
             const components = document.querySelectorAll('.updatecomponent');
 
-            // Dodajemy nasłuchiwacz zdarzeń kliknięcia do każdego elementu
             components.forEach(function(component) {
                 component.addEventListener('click', function() {
                     const id = component.getAttribute('data-id');
                     if (id) {
-                        // Przekierowujemy użytkownika do strony /about?id=<id>
                         window.location.href = '../about?id=' + id;
                     }
                 });
