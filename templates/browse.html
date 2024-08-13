@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <title>Browse Anime</title>
+    <style>
+        body {
+            background-color: #0D1B2A;
+            margin: 0;
+            color: #E0E1DD;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        header {
+            background-color: #1B263B;
+            height: 8vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        header form {
+            display: flex;
+            align-items: center;
+            gap: 1%;
+            padding: 0 1%;
+        }
+        input{
+            width:50%;
+        }
+
+        header select, header input, header button {
+            padding: 1%;
+            border: none;
+            border-radius: 5px;
+            font-size: large;
+        }
+
+        header select, header input {
+            background-color: #415A77;
+            color: #E0E1DD;
+        }
+
+        header button {
+            background-color: #1B263B;
+            color: #E0E1DD;
+            cursor: pointer;
+            background-color: #415A77;
+        }
+
+        .label {
+            background-color: #1B263B;
+            padding: 3% 1%;
+            margin: 1%;
+            box-shadow: 5px 5px 5px black;
+            border-radius: 10px;
+            display: flex;
+            gap: 1%;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .updatecomponent {
+            position: relative;
+            flex: 1 1 calc(25% - 1%);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            max-width: calc(24% - 1%);
+            box-sizing: border-box;
+            margin: 0.5%;
+        }
+
+        .updatecomponent img {
+            width: 100%;
+            height: 20vh;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .updatecomponent .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .updatecomponent p {
+            position: absolute;
+            margin: 0;
+            color: white;
+            word-wrap: break-word;
+            width:99%;
+            margin-left:0.5%;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .updatecomponent .title {
+            top: 3%;
+            left: 3%;
+            font-size: medium;
+        }
+
+        .updatecomponent .episode {
+            bottom: 1%;
+            text-align: center;
+            font-size: small;
+            width: 100%;
+        }
+
+
+
+
+        .more {
+            background-color: #1B263B;
+            padding: 3% 1%;
+            margin: 1%;
+            font-size: 20px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 5px black;
+            text-align: center;
+        }
+
+        .more a {
+            background-color: #415A77;
+            color: #E0E1DD;
+            text-decoration: none;
+            padding: 1%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .more a:hover {
+            background-color: #1B263B;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1% 0;
+        }
+
+        .pagination a, .pagination span {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #E0E1DD;
+            background-color: #1B263B;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px black;
+        }
+
+        .pagination span {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <form action="{{ url_for('browse') }}" method="get">
+            <select name="s">
+                <option value="WINTER" {% if current_season == 'WINTER' %}selected{% endif %}>Winter</option>
+                <option value="SPRING" {% if current_season == 'SPRING' %}selected{% endif %}>Spring</option>
+                <option value="SUMMER" {% if current_season == 'SUMMER' %}selected{% endif %}>Summer</option>
+                <option value="FALL" {% if current_season == 'FALL' %}selected{% endif %}>Fall</option>
+            </select>
+            <input type="number" name="y" placeholder="Year" value="{{ current_year }}">
+            <button type="submit">Search</button>
+        </form>
+    </header>
+
+    <div class="label">
+        {% for a in b.data.Page.media %}
+        <div class="updatecomponent" data-id="{{ a.id }}" data-progress="" data-type="ANIME">
+            <p class="title">{{ a.title.romaji or a.title.english or a.title.native }}</p>
+            <div class="overlay" data-id="{{ a.id }}"></div>
+            <img src="{{ a.coverImage.large }}" alt="{{ a.title.romaji }}">
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if current_page > 1 %}
+            <a href="{{ url_for('browse', s=request.args.get('s', current_season), y=request.args.get('y', current_year), p=current_page - 1) }}">Previous</a>
+        {% endif %}
+        <span>{{ current_page }}</span>
+        {% if b.data.Page.pageInfo.hasNextPage %}
+            <a href="{{ url_for('browse', s=request.args.get('s', current_season), y=request.args.get('y', current_year), p=current_page + 1) }}">Next</a>
+        {% endif %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const components = document.querySelectorAll('.updatecomponent');
+
+            components.forEach(function(component) {
+                component.addEventListener('click', function() {
+                    const id = component.getAttribute('data-id');
+                    if (id) {
+                        window.location.href = '../about?id=' + id;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
