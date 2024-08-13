@@ -1,1 +1,1 @@
-flask-based app for smartphones for Anilist
+Backend for flask-based app
