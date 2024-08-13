@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <title>Home</title>
-        <style>
+    <style>
         body {
             background-color: #0D1B2A;
             margin: 0;
@@ -14,15 +14,26 @@
         }
         header {
             background-color: #1B263B;
-            height: 80px;
+            height: 10vh;
             display: flex;
             position: relative;
             align-items: center;
-            overflow: hidden; 
+            overflow: hidden;
+            padding-left: 10px;
         }
-        header > svg {
-            width: 7%;
-            height: 55%;
+        .bell-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height:100%;
+        }
+        .notification {
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            margin-left: 5px;
         }
         .userdata > img {
             border-radius: 10px;
@@ -38,6 +49,7 @@
             height: 100%;
             padding-right: 10px;
             font-size: 24px;
+            text-decoration:none;
         }
         .userdata > p, img {
             padding: 1%;
@@ -90,8 +102,8 @@
             margin: 0;
             color: white;
             word-wrap: break-word;
-            width:99%;
-            margin-left:0.5%;
+            width: 99%;
+            margin-left: 0.5%;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             z-index: 2;
         }
@@ -108,7 +120,6 @@
             font-size: small;
             width: 100%;
         }
-
 
         .more > a {
             background-color: #415A77;
@@ -139,52 +150,55 @@
     </style>
 </head>
 <body>
-    <header>&nbsp;
-
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-        </svg>
-        &nbsp;
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
-        </svg>
-        <div class="userdata">
+    <header>
+        <div class="bell-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+            </svg>
+            <span class="notification">{{ unread_notification_count }}</span>
+        </div>
+        <a href="../user?u={{ username }}" class="userdata">
             <p>{{ username }}</p>
             <img src="{{ avatar }}" alt="User Avatar">
-        </div>
+        </a>
     </header>
 
-<h2>Anime update</h2>
-<div class="label">
-    {% for a in anime %}
-    <div class="updatecomponent" data-id="{{ a.media.id }}" data-progress="{{ a.progress }}" data-type="ANIME">
-        <p class="title">{{ a.media.title.romaji or a.media.title.english or a.media.title.native }}</p>
-        <p class="episode">{{ a.progress }} / {{ a.media.episodes }}</p>
-        <div class="overlay" data-id="{{ a.media.id }}"></div>
-        <img src="{{ a.media.coverImage.large }}" alt="{{ a.media.title.romaji }}">
+    <h2>Anime update</h2>
+    <div class="label">
+        {% for a in anime %}
+        <div class="updatecomponent" data-id="{{ a.media.id }}" data-progress="{{ a.progress }}" data-type="ANIME">
+            <p class="title">{{ a.media.title.romaji or a.media.title.english or a.media.title.native }}</p>
+            <p class="episode">{{ a.progress }} / {{ a.media.episodes }}</p>
+            <div class="overlay" data-id="{{ a.media.id }}"></div>
+            <img src="{{ a.media.coverImage.large }}" alt="{{ a.media.title.romaji }}">
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-<h2>Manga update</h2>
-<div class="label">
+
+    <h2>Manga update</h2>
+    <div class="label">
+        {% if manga %}
     {% for m in manga %}
-    <div class="updatecomponent" data-id="{{ m.media.id }}" data-progress="{{ m.progress }}" data-type="MANGA">
-        <p class="title">{{ m.media.title.romaji or m.media.title.english or m.media.title.native }}</p>
-        <p class="episode">{{ m.progress }} / {{ m.media.episodes }}</p>
-        <div class="overlay" data-id="{{ m.media.id }}"></div>
-        <img src="{{ m.media.coverImage.large }}" alt="{{ m.media.title.romaji }}">
-    </div>
+        <div class="updatecomponent" data-id="{{ m.media.id }}" data-progress="{{ m.progress }}" data-type="MANGA">
+            <p class="title">{{ m.media.title.romaji or m.media.title.english or m.media.title.native }}</p>
+            <p class="episode">{{ m.progress }} / {{ m.media.episodes }}</p>
+            <div class="overlay" data-id="{{ m.media.id }}"></div>
+            <img src="{{ m.media.coverImage.large }}" alt="{{ m.media.title.romaji }}">
+        </div>
     {% endfor %}
-</div>
+{% else %}
+    <p>No manga data available.</p>
+{% endif %}
 
     </div>
+
     <h2>More</h2>
     <div class="more">
-        <a href="" class="button" disabled>activity</a><br>
+        <a href="../activity" class="button">activity</a><br>
         <a href="" class="button" disabled>full anime list</a><br>
         <a href="" class="button" disabled>full manga list</a><br>
-        <a href="" class="button" disabled>browse</a><br>
-        <a href="" class="button" disabled>search</a>
+        <a href="../browse" class="button">browse</a><br>
+        <a href="../search" class="button">search</a>
     </div>
 </body>
 </html>
@@ -219,4 +233,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+$(document).ready(function() {
+    $('#searchForm').submit(function(event) {
+        event.preventDefault();
+        var query = $('#query').val();
+        $.post('/search', { query: query }, function(data) {
+            var resultsDiv = $('#results');
+            resultsDiv.empty();
+
+            var animeList = data.data.Page.media;
+            animeList.forEach(function(anime) {
+                var animeDiv = $('<div class="animeupdate"></div>');
+                animeDiv.append('<img src="' + anime.coverImage.large + '">');
+                animeDiv.append('<p class="title">' + anime.title.romaji + '</p>');
+                resultsDiv.append(animeDiv);
+            });
+        });
+    });
+});
 </script>
